@@ -106,22 +106,22 @@
         linewidth=2pt,
         rightline=false, topline=false, bottomline=false,
         linecolor=NavyBlue, backgroundcolor=NavyBlue!1,
-    },
+    }
 ]{thmexplanationbox}
 
-\declaretheorem[style=thmgreenbox, name=Definition]{definition}
-\declaretheorem[style=thmbluebox, numbered=no, name=Example]{eg}
-\declaretheorem[style=thmredbox, name=Proposition]{prop}
-\declaretheorem[style=thmredbox, name=Theorem]{theorem}
-\declaretheorem[style=thmredbox, name=Lemma]{lemma}
-\declaretheorem[style=thmredbox, numbered=no, name=Corollary]{corollary}
+\declaretheorem[style=thmredbox, name=Theorem, numberwithin=section]{theorem}
+\declaretheorem[style=thmredbox, name=Lemma, sibling=theorem]{lemma}
+\declaretheorem[style=thmredbox, name=Proposition, sibling=theorem]{prop}
+\declaretheorem[style=thmredbox, name=Corollary, parent=theorem]{corollary}
+\declaretheorem[style=thmgreenbox, name=Definition, sibling=theorem]{definition}
+\declaretheorem[style=thmbluebox, name=Example, sibling=theorem]{eg}
+
 
 \declaretheorem[style=thmproofbox, name=Proof]{replacementproof}
-\renewenvironment{proof}[1][\proofname]{\vspace{-10pt}\begin{replacementproof}}{\end{replacementproof}}
-
+\renewenvironment{proof}[1][\proofname]{\vspace{-12pt}\begin{replacementproof}}{\end{replacementproof}}
 
 \declaretheorem[style=thmexplanationbox, name=Proof]{tmpexplanation}
-\newenvironment{explanation}[1][]{\vspace{-10pt}\begin{tmpexplanation}}{\end{tmpexplanation}}
+\newenvironment{explanation}[1][]{\vspace{-12pt}\begin{tmpexplanation}}{\end{tmpexplanation}}
 
 \declaretheorem[style=thmblueline, numbered=no, name=Remark]{remark}
 \declaretheorem[style=thmblueline, numbered=no, name=Note]{note}
