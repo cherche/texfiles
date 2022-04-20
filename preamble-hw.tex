@@ -3,21 +3,6 @@
 % equation numbers should be pretty transient
 \usepackage{chngcntr}
 \counterwithin*{equation}{subsection}
-% try to merge counters together, and number within section (question)
-\iffalse
-\let\definition\relax
-\let\eg\relax
-\let\prop\relax
-\let\theorem\relax
-\let\lemma\relax
-\let\corollary\relax
-\declaretheorem[style=thmgreenbox, numberwithin=section, name=Definition]{definition}
-\declaretheorem[style=thmbluebox, numberwithin=section, name=Example]{eg}
-\declaretheorem[style=thmredbox, numberwithin=section, name=Proposition]{prop}
-\declaretheorem[style=thmredbox, numberwithin=section, name=Theorem]{theorem}
-\declaretheorem[style=thmredbox, numberwithin=section, name=Lemma]{lemma}
-\declaretheorem[style=thmredbox, numberwithin=section, name=Corollary]{corollary}
-\fi
 
 % homework styles for section headings
 \renewcommand{\thesubsection}{\arabic{section}(\alph{subsection})}
@@ -28,7 +13,7 @@
 % subquestions get placed in left margin
 \titleformat{name=\subsection}[leftmargin]
 	{\normalfont\bfseries\filleft}{\thesubsection}{0.5em}{}
-\titlespacing*{\subsection}{8pc}{2pc}{1pc}
+\titlespacing*{\subsection}{8pc}{1.7pc}{0.5pc}
 % every question gets new page
 \newcommand{\sectionbreak}{\clearpage}
 
@@ -36,10 +21,15 @@
 \newcommand{\question}[2]{
   \ifnum\the\value{section}=#1
   \else
-    % if changing question, print Q#1 to make it extra clear.
-    % also creates a new page (see \sectiobreak setting above)
+    \iffalse
+    % counter is precisely one less than \the\value
+    \setcounter{section}{#1-1}
+    \section{}
+    \fi
+    % this alternate style does not print a big Q#1 section title
+    % don't need to subtract 1 since no \section is called
     \setcounter{section}{#1}
-    \section*{Q#1}
+    \clearpage
   \fi
   % https://tex.stackexchange.com/questions/595582/converting-letters-to-numbers-e-g-a-0-b-1-et-cetera
   \setcounter{subsection}{\number\numexpr`#2-`a\relax}
@@ -50,7 +40,9 @@
 % fancy header
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[L]{\@course~\@title}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+\fancyhead[L]{\@title}
 \fancyhead[C]{\@author}
 \fancyhead[R]{\@date}
 \fancyfoot[L]{}
