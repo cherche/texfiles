@@ -8,11 +8,12 @@
 \renewcommand{\thesubsection}{\arabic{section}(\alph{subsection})}
 \renewcommand{\thesection}{\arabic{section}}
 \usepackage{titlesec}
-\titleformat{\section}
-	{\normalfont\Large\bfseries}{Q\thesection}{1em}{}
+% Don't need this. We never print \section
+%\titleformat{\section}
+%  {\normalfont\Large\bfseries}{Q\thesection}{1em}{}
 % subquestions get placed in left margin
 \titleformat{\subsection}[leftmargin]
-	{\normalfont\bfseries\filleft}{\thesubsection}{0.5em}{}
+  {\normalfont\bfseries\filleft}{\thesubsection}{0.5em}{}
 \titlespacing*{\subsection}{8pc}{1.7pc}{0.5pc}
 
 % fakesection to add question to TOC and bookmarks
@@ -20,7 +21,7 @@
 \newcommand{\fakesection}[1]{%
   \par\refstepcounter{section}% Increase section counter
   \sectionmark{#1}% Add section mark (header)
-  \addcontentsline{toc}{section}{Q\protect\numberline{\thesection}#1}% Add section to ToC
+  \addcontentsline{toc}{section}{Question \protect\numberline{\thesection}#1}% Add section to ToC
 }
 
 % question command to prettify source
