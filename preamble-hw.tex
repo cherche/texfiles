@@ -14,9 +14,6 @@
 \titleformat{\subsection}[leftmargin]
 	{\normalfont\bfseries\filleft}{\thesubsection}{0.5em}{}
 \titlespacing*{\subsection}{8pc}{1.7pc}{0.5pc}
-% every question gets new page
-% \newcommand{\sectionbreak}{\clearpage}
-% the above line doesn't matter when using \fakesection
 
 % fakesection to add question to TOC and bookmarks
 % while still not printing it to the actual document
@@ -24,7 +21,6 @@
   \par\refstepcounter{section}% Increase section counter
   \sectionmark{#1}% Add section mark (header)
   \addcontentsline{toc}{section}{Q\protect\numberline{\thesection}#1}% Add section to ToC
-  \clearpage% New page for each section (question)
 }
 
 % question command to prettify source
@@ -37,12 +33,6 @@
     % counter will increase to #1 once \section called
     \setcounter{section}{#1-1}
     \fakesection{}
-    \iffalse
-    % this alternate style does not print a big Q#1 section title
-    % don't need to subtract 1 since no \section is called
-    \setcounter{section}{#1}
-    \clearpage
-    \fi
   \fi
   % https://tex.stackexchange.com/questions/595582/converting-letters-to-numbers-e-g-a-0-b-1-et-cetera
   \setcounter{subsection}{\number\numexpr`#2-`a\relax}
@@ -67,3 +57,10 @@
 \fancyfoot[L]{}
 \fancyfoot[C]{}
 \fancyfoot[R]{\thepage}
+
+% include question and ensure every question gets new page
+% this separates the \clearpage functionality from the \section
+\newcommand\incq[1]{
+  \input{./#1.tex}
+  \clearpage
+}
