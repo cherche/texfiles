@@ -8,33 +8,52 @@
 \renewcommand{\thesubsection}{\arabic{section}(\alph{subsection})}
 \renewcommand{\thesection}{\arabic{section}}
 \usepackage{titlesec}
-\titleformat{name=\section}
+\titleformat{\section}
 	{\normalfont\Large\bfseries}{Q\thesection}{1em}{}
 % subquestions get placed in left margin
-\titleformat{name=\subsection}[leftmargin]
+\titleformat{\subsection}[leftmargin]
 	{\normalfont\bfseries\filleft}{\thesubsection}{0.5em}{}
 \titlespacing*{\subsection}{8pc}{1.7pc}{0.5pc}
 % every question gets new page
-\newcommand{\sectionbreak}{\clearpage}
+% \newcommand{\sectionbreak}{\clearpage}
+% the above line doesn't matter when using \fakesection
+
+% fakesection to add question to TOC and bookmarks
+% while still not printing it to the actual document
+\newcommand{\fakesection}[1]{%
+  \par\refstepcounter{section}% Increase section counter
+  \sectionmark{#1}% Add section mark (header)
+  \addcontentsline{toc}{section}{Q\protect\numberline{\thesection}#1}% Add section to ToC
+  \clearpage% New page for each section (question)
+}
 
 % question command to prettify source
 \newcommand{\question}[2]{
+  % I insist on using a section counter so that theorem numbers
+  % are continued throughout the subquestions of each question.
+  % This way theorem numbers are not reused within the same question
   \ifnum\the\value{section}=#1
   \else
-    \iffalse
-    % counter is precisely one less than \the\value
+    % counter will increase to #1 once \section called
     \setcounter{section}{#1-1}
-    \section{}
-    \fi
+    \fakesection{}
+    \iffalse
     % this alternate style does not print a big Q#1 section title
     % don't need to subtract 1 since no \section is called
     \setcounter{section}{#1}
     \clearpage
+    \fi
   \fi
   % https://tex.stackexchange.com/questions/595582/converting-letters-to-numbers-e-g-a-0-b-1-et-cetera
   \setcounter{subsection}{\number\numexpr`#2-`a\relax}
   \subsection{}
 }
+
+% need this to properly print the section numbers
+% especially since \section and \subsection have no marks (just the numbering)
+\usepackage[open, openlevel=2, atend, numbered]{bookmark}
+% without the above line, structure still correct but all the entries are blank
+% open and openlevel=2 are just nice to have since sections are so short
 
 \makeatletter
 % fancy header
