@@ -25,19 +25,19 @@
 }
 
 % question command to prettify source
-\newcommand{\question}[2]{
+\newcommand{\question}[2]{%
   % I insist on using a section counter so that theorem numbers
   % are continued throughout the subquestions of each question.
   % This way theorem numbers are not reused within the same question
   \ifnum\the\value{section}=#1
-  \else
+  \else%
     % counter will increase to #1 once \section called
     \setcounter{section}{#1-1}
-    \fakesection{}
+    \fakesection{}%
   \fi
   % https://tex.stackexchange.com/questions/595582/converting-letters-to-numbers-e-g-a-0-b-1-et-cetera
   \setcounter{subsection}{\number\numexpr`#2-`a\relax}
-  \subsection{}
+  \subsection{}%
 }
 
 % need this to properly print the section numbers
@@ -61,7 +61,7 @@
 
 % include question and ensure every question gets new page
 % this separates the \clearpage functionality from the \section
-\newcommand\incq[1]{
-  \input{./#1.tex}
-  \clearpage
+\newcommand\incq[1]{%
+  \input{./#1.tex}%
+  \clearpage%
 }
