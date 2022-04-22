@@ -43,10 +43,10 @@
 
 %%%%% Theorem stuff
 % see https://github.com/gillescastel/university-setup/
-\makeatother
 \usepackage{thmtools}
 \usepackage[framemethod=TikZ]{mdframed}
-\mdfsetup{skipabove=1em,skipbelow=0em}
+
+\mdfsetup{skipabove=0.5em,skipbelow=0em}
 
 \theoremstyle{definition}
 
@@ -116,10 +116,10 @@
 
 
 \declaretheorem[style=thmproofbox, name=Proof]{replacementproof}
-\renewenvironment{proof}[1][\proofname]{\vspace{-12pt}\begin{replacementproof}}{\end{replacementproof}}
+\renewenvironment{proof}[1][\proofname]{\vspace{-0.5em}\begin{replacementproof}}{\end{replacementproof}}
 
 \declaretheorem[style=thmexplanationbox, name=Proof]{tmpexplanation}
-\newenvironment{explanation}[1][]{\vspace{-12pt}\begin{tmpexplanation}}{\end{tmpexplanation}}
+\newenvironment{explanation}[1][]{\vspace{-0.5em}\begin{tmpexplanation}}{\end{tmpexplanation}}
 
 \declaretheorem[style=thmblueline, numbered=no, name=Remark]{remark}
 \declaretheorem[style=thmblueline, numbered=no, name=Note]{note}
