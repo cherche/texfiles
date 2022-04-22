@@ -13,8 +13,10 @@
 %  {\normalfont\Large\bfseries}{Q\thesection}{1em}{}
 % subquestions get placed in left margin
 \titleformat{\subsection}[leftmargin]
-  {\normalfont\bfseries\filleft}{\thesubsection}{0.5em}{}
-\titlespacing*{\subsection}{8pc}{1.7pc}{0.5pc}
+%  {\normalfont\bfseries\filleft}{\thesubsection}{0.5em}{}
+  % remove spacing after number because we never name subsections
+  {\normalfont\bfseries\filleft}{\thesubsection}{0em}{}
+\titlespacing*{\subsection}{8pc}{1.5pc}{1.2pc}
 
 % fakesection to add question to TOC and bookmarks
 % while still not printing it to the actual document
@@ -24,8 +26,8 @@
   \addcontentsline{toc}{section}{Question \protect\numberline{\thesection}#1}% Add section to ToC
 }
 
-% question command to prettify source
-\newcommand{\question}[2]{%
+% solution command to prettify source
+\newcommand{\solution}[2]{%
   % I insist on using a section counter so that theorem numbers
   % are continued throughout the subquestions of each question.
   % This way theorem numbers are not reused within the same question
@@ -38,6 +40,9 @@
   % https://tex.stackexchange.com/questions/595582/converting-letters-to-numbers-e-g-a-0-b-1-et-cetera
   \setcounter{subsection}{\number\numexpr`#2-`a\relax}
   \subsection{}%
+  % We maintain a subsection counter so that labels work correctly
+  % the only issue is that now we can't get custom subsection headings,
+  % such as 1(cd) for when multiple questions are answered at once
 }
 
 % need this to properly print the section numbers
