@@ -1,8 +1,20 @@
+
 \usepackage{hyperref}
 
 % equation numbers should be pretty transient
 \usepackage{chngcntr}
-\counterwithin*{equation}{subsection}
+\counterwithin*{equation}{section}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{Magenta!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=Magenta, backgroundcolor=Magenta!5,
+    }
+]{thmpinkbox}
+% TODO: Fix question numbers. Want them to exactly match section numbers
+\declaretheorem[style=thmpinkbox, name=Question, numbered=no]{q}
 
 % homework styles for section headings
 \renewcommand{\thesubsection}{\arabic{section}(\alph{subsection})}
@@ -26,20 +38,20 @@
   \addcontentsline{toc}{section}{Question \protect\numberline{\thesection}#1}% Add section to ToC
 }
 
+\newcommand{\question}[1]{%
+  \setcounter{section}{#1-1}
+  \fakesection{}%
+}
+
 % solution command to prettify source
-\newcommand{\solution}[2]{%
-  % I insist on using a section counter so that theorem numbers
-  % are continued throughout the subquestions of each question.
-  % This way theorem numbers are not reused within the same question
-  \ifnum\the\value{section}=#1
-  \else%
-    % counter will increase to #1 once \section called
-    \setcounter{section}{#1-1}
-    \fakesection{}%
-  \fi
-  % https://tex.stackexchange.com/questions/595582/converting-letters-to-numbers-e-g-a-0-b-1-et-cetera
-  \setcounter{subsection}{\number\numexpr`#2-`a\relax}
-  \subsection{}%
+\newcommand{\solution}[1]{%
+  \ifthenelse{\isempty{#1}}{%
+    \subsection*{}%
+  }{%
+    % https://tex.stackexchange.com/questions/595582/converting-letters-to-numbers-e-g-a-0-b-1-et-cetera
+    \setcounter{subsection}{\number\numexpr`#1-`a\relax}%
+    \subsection{}%
+  }%
   % We maintain a subsection counter so that labels work correctly
   % the only issue is that now we can't get custom subsection headings,
   % such as 1(cd) for when multiple questions are answered at once
@@ -66,7 +78,7 @@
 
 % include question and ensure every question gets new page
 % this separates the \clearpage functionality from the \section
-\newcommand\incq[1]{%
+\newcommand\inputq[1]{%
   \input{./#1.tex}%
   \clearpage%
 }
